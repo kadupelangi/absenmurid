@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absensi Siswa SDN 2 Kalaparea</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #e9f5ee;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      background: #2d6a4f;
+      color: white;
+      padding: 15px 0;
+    }
+    .header img {
+      width: 70px;
+      display: block;
+      margin: auto;
+    }
+    .container {
+      max-width: 420px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #1b4332;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #2d6a4f;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    button {
+      background-color: #2d6a4f;
+      color: white;
+      font-weight: bold;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1b4332;
+    }
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="D:\ABSEN ONLINE\kadu.png" alt="Logo Sekolah">
+    <h2>SDN 2 Kalaparea</h2>
+    <p>Form Absensi Siswa Online</p>
+  </div>
+
+  <div class="container">
+    <form id="absenForm">
+      <label>Nama Siswa:</label>
+      <input type="text" id="nama" name="nama" placeholder="Masukkan nama siswa" required>
+
+----------
+  <label>Kelas:</label>
+  <select id="kelas" name="kelas" required>
+    <option value="">-- Pilih Kelas --</option>
+    <option value="Kelas 1">Kelas 1</option>
+    <option value="Kelas 2">Kelas 2</option>
+    <option value="Kelas 3">Kelas 3</option>
+    <option value="Kelas 4">Kelas 4</option>
+    <option value="Kelas 5">Kelas 5</option>
+    <option value="Kelas 6">Kelas 6</option>
+  </select>
+
+  <label>Keterangan:</label>
+  <select id="keterangan" name="keterangan" required>
+    <option value="">-- Pilih Keterangan --</option>
+    <option value="Hadir">Hadir</option>
+    <option value="Izin">Izin</option>
+    <option value="Sakit">Sakit</option>
+    <option value="Alpa">Alpa</option>
+  </select>
+
+  <button type="submit">Kirim Absensi</button>
+</form>
+<div class="success" id="successMsg"></div>
+----------
+
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyXFXDRZuAeXphgBTJLdSlcGuobOTEFdbh0x8CkZkR1YztIDg9dm7zvqrHHr9u1x10n/exec'; // ganti dengan URL Apps Script
+    const form = document.getElementById('absenForm');
+    const msg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', e => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  fetch(scriptURL, { method: 'POST', body: formData })
+    .then(response => {
+      msg.textContent = '✅ Data absensi berhasil dikirim!';
+      form.reset();
+      setTimeout(() => msg.textContent = '', 4000);
+    })
+    .catch(error => {
+      msg.textContent = '❌ Terjadi kesalahan. Periksa koneksi atau URL Script!';
+    });
+});
+
+  </script>
+
+</body>
+</html>
